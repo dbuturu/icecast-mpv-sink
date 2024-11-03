@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Copy config file if it doesn’t already exist
+if [ ! -f /etc/icecast-mpv-sink/icecast-mpv-sink.conf ]; then
+    cp /usr/share/icecast-mpv-sink/icecast-mpv-sink.conf /etc/icecast-mpv-sink/icecast-mpv-sink.conf
+fi
+
+# Enable and start the service
+systemctl enable icecast-mpv-sink.service
+systemctl start icecast-mpv-sink.service

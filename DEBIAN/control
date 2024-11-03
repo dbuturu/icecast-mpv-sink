@@ -1,0 +1,8 @@
+Package: icecast-mpv-sink
+Version: 0.0.1
+Section: sound
+Priority: optional
+Architecture: all
+Maintainer: Daniel Buturu <dbuturu@gmail.com>
+Description: Icecast MPV Sink Service
+ A systemd service that runs an MPV client to listen to an Icecast stream as a sink.

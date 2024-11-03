@@ -1,0 +1,10 @@
+[Unit]
+Description=Icecast MPV Sink Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/mpv $(grep stream_url /etc/icecast-mpv-sink/icecast-mpv-sink.conf | cut -d'=' -f2) --volume=$(grep volume /etc/icecast-mpv-sink/icecast-mpv-sink.conf | cut -d'=' -f2)
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
