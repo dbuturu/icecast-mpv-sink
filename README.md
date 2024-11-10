@@ -17,7 +17,7 @@
 
 2. **Install the Package**:
    ```bash
-   sudo dpkg -i icecast-mpv-sink_<version>.deb
+   sudo apt install ./icecast-mpv-sink_<version>.deb
    ```
 
 3. **Adjust Configuration (Optional)**:
