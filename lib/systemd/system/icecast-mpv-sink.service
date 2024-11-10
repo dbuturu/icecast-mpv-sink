@@ -3,8 +3,8 @@ Description=Icecast MPV Sink Service
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/mpv $(grep stream_url /etc/icecast-mpv-sink/icecast-mpv-sink.conf | cut -d'=' -f2) --volume=$(grep volume /etc/icecast-mpv-sink/icecast-mpv-sink.conf | cut -d'=' -f2)
-Restart=always
+ExecStart=/bin/bash -c 'mpv $(crudini --get /etc/icecast-mpv-sink/icecast-mpv-sink.conf settings ICECAST_URL) $(crudini --get /etc/icecast-mpv-sink/icecast-mpv-sink.conf settings MPV_OPTIONS)'
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

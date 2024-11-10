@@ -3,7 +3,7 @@ Version: 0.0.2
 Section: sound
 Priority: optional
 Architecture: all
-Depends: mpv
+Depends: mpv, crudini
 Maintainer: Daniel Buturu <dbuturu@gmail.com>
 Description: Icecast MPV Sink Service
  A systemd service that runs an MPV client to listen to an Icecast stream as a sink.
