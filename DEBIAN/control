@@ -1,5 +1,5 @@
 Package: icecast-mpv-sink
-Version: 0.0.2
+Version: 0.0.4
 Section: sound
 Priority: optional
 Architecture: all
