@@ -3,8 +3,11 @@ Description=Icecast MPV Sink Service
 After=network.target
 
 [Service]
-ExecStart=/bin/bash -c 'mpv $(crudini --get /etc/icecast-mpv-sink/icecast-mpv-sink.conf settings ICECAST_URL) $(crudini --get /etc/icecast-mpv-sink/icecast-mpv-sink.conf settings MPV_OPTIONS)'
-Restart=on-failure
+ExecStartPre=/bin/sh -c 'until ping -c1 $(crudini --get /etc/icecast-mpv-sink/icecast-mpv-sink.conf stream ICECAST_IP); do sleep 5; done'
+ExecStart=/usr/bin/mpv $(crudini --get /etc/icecast-mpv-sink/icecast-mpv-sink.conf mpv no_video --bool) $(crudini --get /etc/icecast-mpv-sink/icecast-mpv-sink.conf mpv volume) --input-ipc-server=/tmp/mpvsocket $(crudini --get /etc/icecast-mpv-sink/icecast-mpv-sink.conf stream ICECAST_URL)
+Restart=always
+RestartSec=5
+EnvironmentFile=-/etc/icecast-mpv-sink/icecast-mpv-sink.conf
 
 [Install]
 WantedBy=multi-user.target
