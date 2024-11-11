@@ -6,7 +6,9 @@
 ## Features
 
 - **Continuous Streaming**: Streams audio from Icecast sources directly to your local machine.
-- **Systemd Integration**: Runs as a systemd service, with automatic restart and resilience to interruptions.
+- **Enhanced Error Handling**: Automatically handles network interruptions, minimizing disruptions in streaming.
+- **Broader MPV Configuration Options**: Flexible configuration through `/etc/icecast-mpv-sink/icecast-mpv-sink.conf`, allowing customization of MPV playback settings.
+- **Systemd Integration**: Runs as a `systemd` service, with automatic restart and resilience to interruptions.
 - **Configurable Setup**: Customize settings via the configuration file in `/etc/icecast-mpv-sink/icecast-mpv-sink.conf`.
 - **Easy Installation**: Available as a `.deb` package, simplifying installation and setup.
 
@@ -32,14 +34,22 @@
 ## Configuration
 
 The configuration file is located at `/etc/icecast-mpv-sink/icecast-mpv-sink.conf`. Here, you can specify:
-- `ICECAST_URL`: URL of the Icecast stream.
-- `MPV_OPTIONS`: Optional parameters for MPV to modify playback settings.
+
+- `stream.url`: URL of the Icecast stream.
+- `[mpv]` options: Additional MPV settings, such as volume and video options.
 
 Example configuration:
 ```ini
+[stream]
+ICECAST_IP=your-icecast-server-url
 ICECAST_URL=http://your-icecast-server-url:8000/stream
-MPV_OPTIONS=--no-video --volume=75
+
+[mpv]
+no_video=true
+volume=75
 ```
+
+These settings allow you to customize playback parameters without modifying the service file.
 
 ## Usage
 
@@ -52,6 +62,21 @@ sudo systemctl status icecast-mpv-sink.service
 # Restart the service
 sudo systemctl restart icecast-mpv-sink.service
 ```
+
+## Error Handling and Troubleshooting
+
+The service includes enhanced error handling:
+
+- **Network Interruptions**: Automatically waits for network availability before starting playback, reducing errors due to network drops.
+- **Automatic Restart**: The service will automatically restart on MPV failure or network disconnection.
+
+**Common Commands:**
+- **Check Service Status**: Run `sudo systemctl status icecast-mpv-sink.service` to see logs.
+- **Network Check**: Ensure the Icecast server address is reachable.
+- **Configuration Updates**: After updating `/etc/icecast-mpv-sink/icecast-mpv-sink.conf`, restart the service:
+  ```bash
+  sudo systemctl restart icecast-mpv-sink.service
+  ```
 
 ## Development
 
